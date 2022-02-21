@@ -21,7 +21,7 @@ class ShortLink:
     def generate_short_link(self):
         """Generate a Short Link."""
         self.generate_string()
-        self.short_link = 'https://www.dell.com/' + self.random_string
+        self.short_link = 'https://www.shortcake.com/' + self.random_string
 
 
 link1 = ShortLink("https://www.dell.com")
