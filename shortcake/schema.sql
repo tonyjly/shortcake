@@ -1,4 +1,4 @@
--- CREATE DATABASE shortcakes
+-- CREATE DATABASE shortcake
 --     WITH
 --     OWNER = postgres
 --     ENCODING = 'UTF8'
