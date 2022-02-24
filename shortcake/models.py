@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.types import Date
 from sqlalchemy.sql.schema import ForeignKey
-from .db import Base, engine
+from db import Base #, engine
 
 
 class Link(Base):

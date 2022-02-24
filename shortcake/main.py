@@ -5,9 +5,9 @@ from sqlalchemy.orm import Session
 from starlette.responses import RedirectResponse
 import uvicorn
 
-from . import models, schemas
-from .schemas import Link
-from .db import SessionLocal, engine
+import models, schemas
+from schemas import Link
+from db import SessionLocal, Base, engine
 
 
 models.Base.metadata.create_all(bind=engine)
