@@ -5,9 +5,9 @@ from sqlalchemy.orm import Session
 from starlette.responses import RedirectResponse
 import uvicorn
 
-from . import models, schemas
-from .schemas import Link
-from .db import SessionLocal, engine
+import models, schemas
+from schemas import Link
+from db import SessionLocal, Base, engine
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -36,9 +36,9 @@ def get_db():
 
 
 @app.get("/", status_code=status.HTTP_200_OK)
-# def read_root():
-#     return {"Hello": "World"}
 def main(db: Session = Depends(get_db)):
+    """Show all links upon entry
+    """
     return db.query(models.Link).all()
 
 
@@ -50,13 +50,13 @@ def show_links(db: Session = Depends(get_db)):
 
 @app.post("/add-link", response_model=schemas.Link)
 def create_link(link: Link, db: Session = Depends(get_db)):
-    """Create a new link and add to db.
+    """Create a new link and add to db
     """
     # Check if target link already exists
     db_link = db.query(models.Link).filter(models.Link.long_link==link.long_link).first()
 
     if db_link is not None:
-         raise HTTPException(status_code=400, detail="Link already exists.")
+        raise HTTPException(status_code=400, detail="Link already exists.")
 
     new_link = models.Link(
         long_link = link.long_link
