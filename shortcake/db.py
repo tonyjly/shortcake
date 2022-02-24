@@ -1,37 +1,12 @@
-"""Database connection file.
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-    Query PostgreSQL db to check db version.
-"""
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/shortcake"
 
-import psycopg2
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def connect():
-    """Connect to PostgreSQL db and query for db version."""
-    connection = None
+Base = declarative_base()
 
-    # Connect to db
-    connection = psycopg2.connect(
-        host = "localhost",
-        database = "postgres",
-        user = "postgres",
-        password = "postgres",
-        port = "5432")
-
-    try:
-        # Create a cursor
-        cursor = connection.cursor()
-
-        # Execute query
-        cursor.execute("SELECT VERSION();")
-        db_version = cursor.fetchone()
-        print(db_version)
-        cursor.close()
-    except(Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if connection is not None:
-            connection.close()
-            print("Database connection terminated.")
-
-if __name__ == "__main__":
-    connect()
+# TODO: Migrate credentials to Docker environment variables
