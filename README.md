@@ -25,6 +25,7 @@ shortcake.lengthen('phenomena')
 ```
 
 ## Future plans and ideas
+- Feature: add column `date_created` for short links
 - Feature: count `times_accessed` for short links
 
 ## Contributing
