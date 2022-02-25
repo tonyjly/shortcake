@@ -6,7 +6,7 @@
 - [x] Create unique short links (shortened URLs)
 - [x] 8-character length short link paths allow for greater than 218 trillion possible short links
 - [x] Maintains unique records for original links and short links (i.e. avoids duplication)
-- [x] Visit API example endpoints and basic testing at http://127.0.0.1:8000/docs
+- [x] View API example endpoints and basic testing at http://127.0.0.1:8000/docs
 
 
 # Dependencies
