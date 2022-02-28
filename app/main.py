@@ -6,6 +6,11 @@ from starlette.responses import RedirectResponse
 from db import SessionLocal, Base, engine
 import models, schemas, crud
 import uvicorn
+import os
+
+API_IP = os.environ.get('API_IP')
+API_PORT = os.environ.get('API_PORT')
+API_ADDRESS = f"http://{API_IP}:{API_PORT}/"
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -58,7 +63,7 @@ def add_link(link: schemas.Link, db: Session = Depends(get_db)):
         return {
             "Status": "Link already exists.",
             "Original link": db_link.long_link,
-            "Short link": "http://127.0.0.1:8000/" + db_short_link.short_link_path
+            "Short link": API_ADDRESS + db_short_link.short_link_path
         }
 
     new_short_link = crud.create_short_link(db=db, link=link)
@@ -67,7 +72,7 @@ def add_link(link: schemas.Link, db: Session = Depends(get_db)):
     return {
         "Status": "Link successfully processed.",
         "Original link": new_link.long_link,
-        "Short link": "http://127.0.0.1:8000/" + new_short_link.short_link_path
+        "Short link": API_ADDRESS + new_short_link.short_link_path
     }
 
 @app.get("/{short_link_path}", response_model=schemas.ShortLink)
