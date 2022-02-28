@@ -34,16 +34,16 @@ def get_db():
 def main(db: Session = Depends(get_db)):
     """Show all links upon entry
     """
-    return db.query(models.Link).all()
+    return db.query(models.Link).limit(25).all()
 
 @app.get("/links", response_model=List[schemas.Link])
 def read_links(db: Session = Depends(get_db)):
-    links = db.query(models.Link).all()
+    links = db.query(models.Link).limit(25).all()
     return links
 
 @app.get("/short-links", response_model=List[schemas.ShortLink])
 def read_short_links(db: Session = Depends(get_db)):
-    short_links = db.query(models.ShortLink).all()
+    short_links = db.query(models.ShortLink).limit(25).all()
     return short_links
 
 @app.post("/add-link")
