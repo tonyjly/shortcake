@@ -31,8 +31,6 @@
 
 ## Usage
 
-Open Terminal and start the repo's web server implementation:
-
 To view a list of original links, visit:
 ```bash
 http://127.0.0.1:8000
