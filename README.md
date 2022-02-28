@@ -10,16 +10,16 @@
 
 
 # Dependencies
-- Docker
-- requirements.txt
-  - Python 3.9+
-  - pip 22.0.3+
-  - FastAPI 0.74.1+
-  - PostgreSQL 14
-  - SQLAlchemy 1.4.31+
-  - pydantic 1.9.0+
-  - starlette 0.17.1+
-  - Uvicorn 0.17.5+
+- Docker 19.03.0
+- Docker Compose 3.8
+- Python 3.9
+- pip 22.0.3
+- FastAPI 0.74.1
+- PostgreSQL 14
+- SQLAlchemy 1.4.31
+- pydantic 1.9.0
+- starlette 0.17.1
+- Uvicorn 0.17.5
 
 
 ## Getting Started
