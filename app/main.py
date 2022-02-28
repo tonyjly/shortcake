@@ -1,7 +1,8 @@
 from typing import List
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import func
 from starlette.responses import RedirectResponse
 from db import SessionLocal, Base, engine
 import models, schemas, crud
@@ -37,18 +38,19 @@ def get_db():
 
 @app.get("/", status_code=status.HTTP_200_OK)
 def main(db: Session = Depends(get_db)):
-    """Show all links upon entry
+    """Show random 25 long links upon entry
     """
-    return db.query(models.Link).limit(25).all()
+    return crud.read_links(db=db)
 
-@app.get("/links", response_model=List[schemas.Link])
+@app.get("/links")
 def read_links(db: Session = Depends(get_db)):
-    links = db.query(models.Link).limit(25).all()
-    return links
+    """Show random 25 long links
+    """
+    return crud.read_links(db=db)
 
 @app.get("/short-links", response_model=List[schemas.ShortLink])
 def read_short_links(db: Session = Depends(get_db)):
-    short_links = db.query(models.ShortLink).limit(25).all()
+    short_links = db.query(models.ShortLink).order_by(func.random()).limit(25).all()
     return short_links
 
 @app.post("/add-link")
