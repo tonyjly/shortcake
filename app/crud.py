@@ -1,9 +1,15 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import func
 from pydantic import HttpUrl
 import string
 import random
 import models
 import schemas
+
+def read_links(db: Session):
+    """Read first 25 long links randomly
+    """
+    return db.query(models.Link).order_by(func.random()).limit(25).all()
 
 def create_link(link: HttpUrl, db: Session, new_short_link: str):
     """Create a new link and add to db

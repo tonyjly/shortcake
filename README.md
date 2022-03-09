@@ -10,37 +10,36 @@
 
 
 # Dependencies
-- Visual Studio Code
-- Docker
-- requirements.txt
-  - Python 3.10+
-  - pip 22.0.3+
-  - FastAPI 0.74.1+
-  - PostgreSQL 14
-  - SQLAlchemy 1.4.31+
-  - pydantic 1.9.0+
-  - starlette 0.17.1+
-  - Uvicorn 0.17.5+
+- Docker 19.03.0
+- Docker Compose 3.8
+- Python 3.9
+- pip 22.0.3
+- FastAPI 0.74.1
+- PostgreSQL 14
+- SQLAlchemy 1.4.31
+- pydantic 1.9.0
+- starlette 0.17.1
+- Uvicorn 0.17.5
 
 
 ## Getting Started
 
 1. Clone repo
-2. Open repo directory in VSCode
-3. Using vscode Remote-Containers Extension: Rebuild and Reopen in Container
+2. Navigate to project root directory
+3. Run `docker-compose up`
 
 
 ## Usage
 
-Open Terminal and start the repo's web server implementation:
-
-```bash
-cd shortcake && uvicorn main:app --reload --host 0.0.0.0
-```
-
 To view a list of original links, visit:
 ```bash
 http://127.0.0.1:8000
+```
+
+or
+
+```bash
+http://127.0.0.1:8000/links
 ```
 
 To view a list of short links, visit:
@@ -57,6 +56,9 @@ curl --location --request POST '127.0.0.1:8000/add-link' \
 
 Visit a short link to get redirected by API to original link.
 
+To view API endpoint documentation, please visit:  http://127.0.0.1:8000/docs
+
+
 ## Future plans and ideas
 Features to add:
 - Add column `date_created` for short links
@@ -68,9 +70,17 @@ Features to add:
 - Implement reporting features (such as most accessed links, most popular domains, most frequent users etc.)
 
 ## Maintenance
-- Automating the testing of this service (possibly via a API testing framework, such as pytest with Tavern)
+- Automating the testing of this service (possibly via an API testing framework, such as pytest with Tavern)
 - Purge obsolete links from the database in case original links no longer point to valid pages
-
+- Run automated server monitor and send alert when API or database servers go down
+  - Monitor multiple endpoints
+  - Run functional checks
+    - CRUD operations
+    - validate payloads using JSON schema validation
+    - identify latency via API response times
+  - Test for non HTTP 200 OK status codes for API requests that should fail
+  - Test both prod and dev environments
+    - Hopefully, identifying and fixing issues in dev will help avoid issues arising in prod
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
